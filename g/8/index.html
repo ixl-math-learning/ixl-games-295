@@ -23,48 +23,7 @@
     }, false);
     </script>
 
-	<script>
-        const adBreak = adConfig = function(o) {return;}
-        
-        function initSDK() {
-			// Game start logic
-			let adConfigPromise =
-					new Promise((resolve, reject) => adConfig({
-						preloadAdBreaks: 'on',
-						onReady: () => resolve(true)
-					}));
-			let timeoutPromise =
-					new Promise((resolve, reject) => {
-						setTimeout(() => {
-							console.log("Ad timeout");
-							resolve(false);
-						}, 2000);
-					});
-			// Whatever happens first resolves this promise.
-			Promise.race([
-				adConfigPromise,
-				timeoutPromise
-			]).then((shouldShowPreRoll) => {
-				if (shouldShowPreRoll) {
-					showPreRoll();
-				} else {
-					console.log("start game called");
-					c3_callFunction("startGame");
-				}
-			});
-		}
-    
-		function showPreRoll() {
-			// Show ad
-			adBreak({
-				type: 'start',
-				adBreakDone: function () {
-					console.log("start game called");
-					c3_callFunction("startGame");
-				}, // always called, unblocks the game logic
-			});
-		}
-	</script>
+	
 
 	<script>
         function CallInterstitialAds()
